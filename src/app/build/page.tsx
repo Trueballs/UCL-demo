@@ -1438,7 +1438,7 @@ function BuilderContent() {
                                         <button onClick={brand ? handleDownload : () => router.push("/")} disabled={isDownloading} className="w-full py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:opacity-50 hover:bg-blue-700 active:scale-95" style={{ background: '#2563EB', color: '#ffffff' }}>
                                             {isDownloading ? <><RefreshCw className="w-5 h-5 animate-spin" /> Processing...</> : <><Download className="w-5 h-5" /> Download Banner</>}
                                         </button>
-                                        <p className="text-center text-[11px] text-gray-400">LinkedIn optimised · Free · Sharp 1584x396 PNG</p>
+                                        <p className="text-center text-[11px] text-gray-400">LinkedIn optimised · Sharp 1584x396 PNG</p>
                                     </div>
                                 </div>
                             </>
