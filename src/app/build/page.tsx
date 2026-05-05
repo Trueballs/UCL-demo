@@ -214,7 +214,7 @@ function SmartLogo({
                     objectFit: "contain", 
                     objectPosition: align === "center" ? "center" : `center ${align === "flex-start" ? "top" : "bottom"}`,
                     display: "block",
-                    mixBlendMode: (hasBg && !panelDark) ? "multiply" : "normal",
+                    mixBlendMode: (hasBg && !isLight) ? "multiply" : "normal",
                     filter: !hasBg ? "drop-shadow(0px 2px 2px rgba(0,0,0,0.15))" : "none",
                 }}
                 onError={() => setErr(true)} />
