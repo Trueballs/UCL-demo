@@ -1036,8 +1036,8 @@ function BuilderContent() {
     };
 
     // ── Layout navigation ─────────────────────────────────────
-    const prevLayout = () => setLayout(l => ((l - 1 + LAYOUTS.length) % LAYOUTS.length) as Layout);
-    const nextLayout = () => setLayout(l => ((l + 1) % LAYOUTS.length) as Layout);
+    const prevLayout = () => setLayout(l => { const n = ((l - 1 + LAYOUTS.length) % LAYOUTS.length) as Layout; if (n === 8 && logoScale > 1.0) setLogoScale(1.0); return n; });
+    const nextLayout = () => setLayout(l => { const n = ((l + 1) % LAYOUTS.length) as Layout; if (n === 8 && logoScale > 1.0) setLogoScale(1.0); return n; });
 
     // ── Photo navigation ──────────────────────────────────────
     const prevImg = () => setImgIndex(i => Math.max(0, i - 1));
@@ -1255,7 +1255,7 @@ function BuilderContent() {
                                             <div className="flex gap-1 flex-1">
                                                 {([0, 1, 2, 3, 4, 5, 6, 7, 8] as Layout[]).map(l => (
                                                     <button key={l}
-                                                        onClick={() => setLayout(l)}
+                                                        onClick={() => { setLayout(l); if (l === 8 && logoScale > 1.0) setLogoScale(1.0); }}
                                                         className="flex-1 aspect-[4/1] rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95"
                                                         style={{
                                                             outline: layout === l ? `3px solid #2563EB` : "0px solid transparent",
@@ -1429,18 +1429,25 @@ function BuilderContent() {
                                                     { label: 'Small', val: 0.75 },
                                                     { label: 'Normal', val: 1.0 },
                                                     { label: 'Large', val: 1.25 }
-                                                ].map(s => (
-                                                    <button key={s.label}
-                                                        onClick={() => setLogoScale(s.val)}
-                                                        className="flex-1 py-2.5 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all"
-                                                        style={{
-                                                            borderColor: Math.abs(logoScale - s.val) < 0.01 ? primary : "#f3f4f6",
-                                                            background: Math.abs(logoScale - s.val) < 0.01 ? `${primary}10` : "#f9fafb",
-                                                            color: Math.abs(logoScale - s.val) < 0.01 ? primary : "#9ca3af"
-                                                        }}>
-                                                        {s.label}
-                                                    </button>
-                                                ))}
+                                                ].map(s => {
+                                                    const disabled = layout === 8 && s.val === 1.25;
+                                                    const active = Math.abs(logoScale - s.val) < 0.01;
+                                                    return (
+                                                        <button key={s.label}
+                                                            onClick={() => { if (!disabled) setLogoScale(s.val); }}
+                                                            disabled={disabled}
+                                                            className="flex-1 py-2.5 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all"
+                                                            style={{
+                                                                borderColor: disabled ? "#e5e7eb" : active ? primary : "#f3f4f6",
+                                                                background: disabled ? "#f3f4f6" : active ? `${primary}10` : "#f9fafb",
+                                                                color: disabled ? "#d1d5db" : active ? primary : "#9ca3af",
+                                                                cursor: disabled ? "not-allowed" : "pointer",
+                                                                opacity: disabled ? 0.5 : 1,
+                                                            }}>
+                                                            {s.label}
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     )}
