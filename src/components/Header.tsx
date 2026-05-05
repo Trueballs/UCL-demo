@@ -46,16 +46,11 @@ export default function Header({ showStartButton = false, showBackButton = false
 
   return (
     <header className="w-full z-[100] sticky top-0 backdrop-blur-md border-b-[1px] border-slate-900/15 transition-all" style={{ backgroundColor: 'rgba(248, 250, 252, 0.85)' }}>
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
-        {/* LEFT: Logo */}
-        <div className="flex items-center justify-start shrink-0">
-          <img 
-            src="/assets/logo.png" 
-            alt="Myunibanner Logo" 
-            className="h-7 md:h-11 w-auto cursor-pointer object-contain"
-            onClick={() => router.push("/")}
-          />
-        </div>
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between relative">
+        {/* LEFT: Demo badge */}
+        <span className="px-5 md:px-7 py-2 md:py-2.5 bg-blue-50 text-blue-600 font-bold text-[13px] md:text-sm rounded-full border border-blue-200">
+          Demo
+        </span>
 
         {/* RIGHT: Actions */}
         <div className="flex items-center justify-end gap-3 md:gap-4">
@@ -67,13 +62,6 @@ export default function Header({ showStartButton = false, showBackButton = false
               <ArrowLeft className="w-3.5 md:w-4 h-3.5 md:h-4" /> Back
             </button>
           )}
-
-          <button
-            onClick={() => window.open('https://www.linkedin.com/in/oscar-wold-skaarderud-613644340', '_blank')}
-            className="px-5 md:px-7 py-2 md:py-2.5 bg-blue-600 text-white font-bold text-[13px] md:text-sm rounded-full transition-all shadow-md hover:bg-blue-700 active:scale-95"
-          >
-            Contact
-          </button>
         </div>
       </div>
     </header>

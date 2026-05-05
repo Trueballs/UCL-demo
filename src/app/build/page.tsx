@@ -7,7 +7,6 @@ import { toBlob, toPng } from "html-to-image";
 
 import { useSearchParams, useRouter } from "next/navigation";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { ALL_UNIVERSITIES } from "@/data/universities";
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1511,7 +1510,6 @@ function BuilderContent() {
                                         </div>
                 </div>
             </main>
-            <Footer />
         </div>
 
             {/* DOWNLOAD INSTRUCTION POPUP */}
