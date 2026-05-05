@@ -214,7 +214,7 @@ function SmartLogo({
                     objectFit: "contain", 
                     objectPosition: align === "center" ? "center" : `center ${align === "flex-start" ? "top" : "bottom"}`,
                     display: "block",
-                    mixBlendMode: (hasBg && !isLight) ? "multiply" : "normal",
+                    mixBlendMode: "normal",
                     filter: !hasBg ? "drop-shadow(0px 2px 2px rgba(0,0,0,0.15))" : "none",
                 }}
                 onError={() => setErr(true)} />
@@ -643,10 +643,7 @@ function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, phot
                 style={{ position: "absolute", right: 0, top: 0, width: IMG_W, height: H, objectFit: "fill" }}
             />
             <div className="absolute flex items-center justify-center" style={{ left: LOGO_LEFT, top: 0, width: LOGO_W, height: H }}>
-                {/* White container neutralises multiply blend — logos with hasBg render correctly over the stripe pattern */}
-                <div style={{ background: "white", padding: "20px 28px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="white" h={200} maxW={360} brandColors={brand.colors} scale={logoScale} />
-                </div>
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={panelColor} h={200} maxW={360} brandColors={brand.colors} scale={logoScale} />
             </div>
         </div>
     );
