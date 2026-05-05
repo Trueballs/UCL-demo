@@ -1,0 +1,14 @@
+{
+  "university": "University College London",
+  "colors": [
+    { "hex": "#361A54", "name": "UCL Dark Purple", "role": "main", "weight": 1 },
+    { "hex": "#30D6FF", "name": "Heritage Blue", "role": "light", "weight": 2 },
+    { "hex": "#993BFF", "name": "Bright Purple", "role": "accent", "weight": 3 },
+    { "hex": "#111111", "name": "Black", "role": "dark", "weight": 4 },
+    { "hex": "#ffffff", "name": "White", "role": "light", "weight": 5 }
+  ],
+  "fonts": [
+    { "name": "DM Sans", "role": "primary", "type": "sans-serif", "weight": 1 },
+    { "name": "Aptos", "role": "fallback", "type": "sans-serif", "weight": 2 }
+  ]
+}
