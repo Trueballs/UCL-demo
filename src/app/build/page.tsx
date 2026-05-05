@@ -1376,9 +1376,9 @@ function BuilderContent() {
                                                 </label>
                                                 <div className="flex gap-3 flex-wrap">
                                                     {brand.colors.map((c, i) => (
-                                                        <button key={i} onClick={() => setTintIndex(i)} className="w-10 h-10 rounded-full border-2 transition-all hover:scale-110 active:scale-95 shadow-sm" style={{ backgroundColor: c, borderColor: tintIndex === i ? 'white' : 'transparent', boxShadow: tintIndex === i ? `0 0 0 2px ${c}, 0 4px 12px rgba(0,0,0,0.1)` : '0 2px 4px rgba(0,0,0,0.05)' }} />
+                                                        <button key={i} onClick={() => setTintIndex(tintIndex === i ? -1 : i)} className="w-10 h-10 rounded-full transition-all hover:scale-110 active:scale-95 relative" style={{ backgroundColor: c, boxShadow: tintIndex === i ? `0 0 0 3px #fbbf24, 0 0 0 5px #f59e0b, 0 4px 12px rgba(245, 158, 11, 0.4)` : '0 2px 4px rgba(0,0,0,0.05)' }} />
                                                     ))}
-                                                    <button onClick={() => setTintIndex(-1)} className="w-10 h-10 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-500 transition-all text-[10px] font-bold uppercase" style={{ background: tintIndex === -1 ? '#f3f4f6' : 'transparent' }}>
+                                                    <button onClick={() => setTintIndex(-1)} className="w-10 h-10 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-500 transition-all text-[10px] font-bold uppercase" style={{ background: tintIndex === -1 ? '#f3f4f6' : 'transparent', boxShadow: tintIndex === -1 ? `0 0 0 3px #fbbf24, 0 0 0 5px #f59e0b, 0 4px 12px rgba(245, 158, 11, 0.4)` : 'none' }}>
                                                         Auto
                                                     </button>
                                                 </div>
