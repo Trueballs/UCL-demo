@@ -623,8 +623,9 @@ const L8_STRIPE_IMAGES: Record<number, string> = {
 };
 
 function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, photoFilter = "none", tintIndex = 0 }: LayoutProps) {
-    const stripeSrc = L8_STRIPE_IMAGES[tintIndex] ?? L8_STRIPE_IMAGES[0];
-    const panelColor = brand.colors[tintIndex] ?? "#361A54";
+    const effectiveTint = tintIndex < 0 ? 0 : tintIndex;
+    const stripeSrc = L8_STRIPE_IMAGES[effectiveTint] ?? L8_STRIPE_IMAGES[0];
+    const panelColor = brand.colors[effectiveTint] ?? "#361A54";
     const IMG_W = Math.round(672 * (H / 333));
     const LOGO_LEFT = W - IMG_W + Math.round(IMG_W * 0.53);
     const LOGO_W = W - LOGO_LEFT;
