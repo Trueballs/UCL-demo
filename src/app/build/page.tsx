@@ -359,9 +359,6 @@ function L0({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
 function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
-    // Use smartly-selected panel color that contrasts with the logo
-    const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
-    const tintColor = pickBestPanelColor(null, logoIsLight ?? true, brand.colors, rawTint);
     const brandFont = getFont(brand.fonts?.[0]);
     const font = getHeadlineFont(textStyle, brand.domain);
 
@@ -375,13 +372,13 @@ function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 
             {/* Very clean solid right-side panel (No gradient) */}
             <div className="absolute inset-y-0 right-0 w-[550px] z-1" style={{
-                background: tintColor,
+                background: primary,
                 opacity: 0.9,
             }} />
 
             <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
                 <div className="flex flex-col items-center gap-8">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                     {text && (
                         <p style={{
                             color: headlineColor, fontSize: 26 * textSize, fontWeight: 900,
