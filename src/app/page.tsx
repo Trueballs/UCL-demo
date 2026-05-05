@@ -34,9 +34,7 @@ export default function Home() {
   }, []);
 
   const handleOpenOnboarding = () => {
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("lnbg_open_onboarding"));
-    }
+    router.push("/build?domain=ucl.ac.uk");
   };
 
   return (
@@ -238,7 +236,7 @@ export default function Home() {
                 truly professional LinkedIn profiles.
               </p>
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent("lnbg_open_onboarding"))}
+                onClick={() => router.push("/build?domain=ucl.ac.uk")}
                 className="px-12 py-6 bg-blue-600 text-white font-bold text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg flex items-center justify-center gap-4 active:scale-95"
               >
                 Try it now
