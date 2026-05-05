@@ -643,7 +643,10 @@ function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, phot
                 style={{ position: "absolute", right: 0, top: 0, width: IMG_W, height: H, objectFit: "fill" }}
             />
             <div className="absolute flex items-center justify-center" style={{ left: LOGO_LEFT, top: 0, width: LOGO_W, height: H }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={panelColor} h={200} maxW={360} brandColors={brand.colors} scale={logoScale} />
+                {/* White container neutralises multiply blend — logos with hasBg render correctly over the stripe pattern */}
+                <div style={{ background: "white", padding: "20px 28px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="white" h={200} maxW={360} brandColors={brand.colors} scale={logoScale} />
+                </div>
             </div>
         </div>
     );
