@@ -750,37 +750,31 @@ function BannerCanvas({
 /* ═══════════════════════════════════════════════════════════════
    LAYOUT THUMBNAIL
 ═══════════════════════════════════════════════════════════════ */
+const PHOTO = "#8fa3b8";
 const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) => React.ReactNode }[] = [
     {
         label: "Split",
         preview: (c, a) => (
             <div className="w-full h-full flex overflow-hidden">
-                <div style={{ width: "40%", background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
-
-                </div>
-                <div style={{ flex: 1, background: `${c}22`, position: "relative" }}>
-                    <div style={{ width: "100%", height: "100%", background: `linear-gradient(135deg, ${c}44 0%, ${c}11 100%)` }} />
-                </div>
+                <div style={{ width: "40%", background: c }} />
+                <div style={{ flex: 1, background: PHOTO }} />
             </div>
         ),
     },
     {
         label: "Immersive",
         preview: (c, a) => (
-            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: c }}>
-                <div style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(to left, ${c}ee 30%, transparent 70%)` }} />
-
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to left, ${c}f0 20%, transparent 65%)` }} />
             </div>
         ),
     },
     {
         label: "Bold Stripe",
         preview: (c, a) => (
-            <div className="w-full h-full overflow-hidden flex" style={{ background: `${c}33` }}>
+            <div className="w-full h-full overflow-hidden flex" style={{ background: PHOTO }}>
                 <div style={{ flex: 1 }} />
-                <div style={{ width: "38%", background: c, clipPath: "polygon(12px 0, 100% 0, 100% 100%, 0 100%)", display: "flex", alignItems: "center", paddingLeft: 16 }}>
-
-                </div>
+                <div style={{ width: "38%", background: c, clipPath: "polygon(12px 0, 100% 0, 100% 100%, 0 100%)" }} />
             </div>
         ),
     },
@@ -789,20 +783,20 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         preview: (c, a) => (
             <div className="w-full h-full flex overflow-hidden">
                 <div style={{ width: "48%", background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ width: "55%", height: "30%", background: `rgba(255,255,255,0.25)`, borderRadius: 2 }} />
+                    <div style={{ width: "55%", height: "28%", background: `rgba(255,255,255,0.3)`, borderRadius: 2 }} />
                 </div>
-
-                <div style={{ flex: 1, background: a + "44", display: "flex", alignItems: "center", paddingLeft: 10 }}>
-
+                <div style={{ flex: 1, background: a + "55", display: "flex", alignItems: "center", paddingLeft: 8 }}>
+                    <div style={{ width: "60%", height: "12%", background: `${a}99`, borderRadius: 1 }} />
                 </div>
             </div>
         ),
     },
     {
-        label: "Minimalist Photo",
+        label: "Glass Panels",
         preview: (c, a) => (
-            <div className="w-full h-full relative overflow-hidden bg-white flex items-center justify-center">
-                <div style={{ width: "40%", height: "40%", background: c, borderRadius: 2 }} />
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
+                <div style={{ position: "absolute", left: "6%", top: "18%", width: "36%", height: "64%", background: `${c}cc`, borderRadius: 2 }} />
+                <div style={{ position: "absolute", right: "6%", top: "18%", width: "36%", height: "64%", background: "rgba(255,255,255,0.28)", borderRadius: 2 }} />
             </div>
         ),
     },
@@ -811,8 +805,8 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         preview: (c, a) => (
             <div className="w-full h-full overflow-hidden flex" style={{ background: c }}>
                 <div style={{ flex: 1 }} />
-                <div style={{ width: "45%", position: "relative", background: "white", clipPath: "polygon(8px 0, 100% 0, 100% 100%, 0 100%)", display: "flex", alignItems: "center", paddingLeft: 16 }}>
-
+                <div style={{ width: "45%", background: "white", clipPath: "polygon(8px 0, 100% 0, 100% 100%, 0 100%)", display: "flex", alignItems: "center", paddingLeft: 14 }}>
+                    <div style={{ width: "55%", height: "22%", background: `${c}55`, borderRadius: 1 }} />
                 </div>
             </div>
         ),
@@ -820,31 +814,28 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
     {
         label: "Diagonal",
         preview: (c, a) => (
-            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: `${c}33` }}>
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(125deg, transparent 35%, ${c}ee 50%, ${c} 60%)`, zIndex: 1 }} />
-
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(125deg, transparent 35%, ${c}f0 52%, ${c} 62%)` }} />
             </div>
         ),
     },
     {
         label: "Centered Logo",
         preview: (c, a) => (
-            <div className="w-full h-full relative overflow-hidden bg-white flex items-center justify-center">
-                <div style={{ width: "60%", height: "20%", background: c, borderRadius: 1 }} />
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
+                <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.25)" }} />
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: "52%", height: "22%", background: "rgba(255,255,255,0.85)", borderRadius: 1 }} />
+                </div>
             </div>
         ),
     },
     {
         label: "Vertical Stripes",
         preview: (c) => (
-            <div className="w-full h-full flex overflow-hidden" style={{ background: c }}>
-                <div style={{ width: "25%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ width: "55%", height: "30%", background: "rgba(255,255,255,0.3)", borderRadius: 2 }} />
-                </div>
-                <div style={{ width: 3, background: "#ffffff", height: "100%" }} />
-                <div style={{ width: "25%", height: "100%" }} />
-                <div style={{ width: 3, background: "#ffffff", height: "100%" }} />
-                <div style={{ flex: 1, height: "100%" }} />
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
+                <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "48%", background: c, opacity: 0.9 }} />
+                <div style={{ position: "absolute", right: "8%", top: "20%", width: "28%", height: "60%", background: "rgba(255,255,255,0.25)", borderRadius: 1 }} />
             </div>
         ),
     },
@@ -1383,7 +1374,7 @@ function BuilderContent() {
                                         return (
                                             <div className={accentDisabled ? 'opacity-30 pointer-events-none grayscale' : ''}>
                                                 <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${accentDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
-                                                    Accent Color
+                                                    Background Color
                                                     {accentDisabled && <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">— not available</span>}
                                                 </label>
                                                 <div className="flex gap-3 flex-wrap">
@@ -1398,7 +1389,7 @@ function BuilderContent() {
                                         );
                                     })()}
                                     <div>
-                                        <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Logo Variant</label>
+                                        <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Variants</label>
                                         <div className="flex gap-2 flex-wrap">
                                             {[...brand.logos].map((logo, i) => ({ logo, i })).sort((a,b) => {
                                                 const ai = a.logo.isIcon ?? false; const bi = b.logo.isIcon ?? false;
