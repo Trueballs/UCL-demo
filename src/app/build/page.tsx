@@ -941,9 +941,8 @@ function BuilderContent() {
 
     // ── Fetch brand on domain param change ────────────────────
     useEffect(() => {
-        const domain = params.get("domain");
+        const domain = "ucl.ac.uk";
         const campus = params.get("campus");
-        if (!domain) return;
         
         let isMounted = true;
         setLoading(true);
@@ -1038,7 +1037,7 @@ function BuilderContent() {
     };
 
     // Find the university in the data to get available campuses
-    const uniMetadata = ALL_UNIVERSITIES.find(u => u.domain === params.get("domain"));
+    const uniMetadata = ALL_UNIVERSITIES.find(u => u.domain === "ucl.ac.uk");
 
     // ── Download ──────────────────────────────────────────────
     const handleDownload = async () => {
