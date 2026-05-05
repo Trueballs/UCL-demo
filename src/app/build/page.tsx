@@ -615,6 +615,41 @@ function L7({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 
 
 /* ═══════════════════════════════════════════════════════════════
+   LAYOUT 8 — "VERTICAL STRIPES" (UCL-specific)
+═══════════════════════════════════════════════════════════════ */
+const L8_STRIPE_IMAGES: Record<number, string> = {
+    0: "/layout-assets/ucl-stripes-header dark purple.png",
+    1: "/layout-assets/ucl-stripes-header light blue.png",
+    2: "/layout-assets/ucl-stripes-header bright purple.png",
+    3: "/layout-assets/ucl-stripes-header black.png",
+    4: "/layout-assets/ucl-stripes-header white.png",
+};
+
+function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, photoFilter = "none", tintIndex = 0 }: LayoutProps) {
+    const stripeSrc = L8_STRIPE_IMAGES[tintIndex] ?? L8_STRIPE_IMAGES[0];
+    const panelColor = brand.colors[tintIndex] ?? "#361A54";
+    const IMG_W = Math.round(672 * (H / 333));
+    const LOGO_LEFT = W - IMG_W + Math.round(IMG_W * 0.53);
+    const LOGO_W = W - LOGO_LEFT;
+    return (
+        <div className="absolute inset-0 overflow-hidden" style={{ width: W, height: H, background: panelColor }}>
+            {img && (
+                <img src={img} alt="" crossOrigin="anonymous"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", filter: photoFilter }} />
+            )}
+            <img
+                src={stripeSrc}
+                alt=""
+                style={{ position: "absolute", right: 0, top: 0, width: IMG_W, height: H, objectFit: "fill" }}
+            />
+            <div className="absolute flex items-center justify-center" style={{ left: LOGO_LEFT, top: 0, width: LOGO_W, height: H }}>
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={panelColor} h={200} maxW={360} brandColors={brand.colors} scale={logoScale} />
+            </div>
+        </div>
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
@@ -668,7 +703,7 @@ function BannerCanvas({
     // Check for logo-background similarity
     const logoIsSimilar = activeLogoColor ? colorsAreSimilar(activeLogoColor, primary) : (!logoIsLight && isDark(primary)) || (logoIsLight && !isDark(primary));
 
-    if (tintIndex === -1) {
+    if (tintIndex === -1 && layout !== 8) {
         if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
             // Dark logo on dark bg OR similar color → pick best contrasting brand color
             primary = pickBestPanelColor(activeLogoColor ?? null, (logoIsLight !== undefined ? logoIsLight : true), brand.colors, primary);
@@ -704,7 +739,8 @@ function BannerCanvas({
             {layout === 5 && <L5 {...p} />}
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
-            
+            {layout === 8 && <L8 {...p} />}
+
             <GrainOverlay />
             <FrameOverlay />
         </div>
@@ -798,12 +834,26 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             </div>
         ),
     },
+    {
+        label: "Vertical Stripes",
+        preview: (c) => (
+            <div className="w-full h-full flex overflow-hidden" style={{ background: c }}>
+                <div style={{ width: "25%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: "55%", height: "30%", background: "rgba(255,255,255,0.3)", borderRadius: 2 }} />
+                </div>
+                <div style={{ width: 3, background: "#ffffff", height: "100%" }} />
+                <div style={{ width: "25%", height: "100%" }} />
+                <div style={{ width: 3, background: "#ffffff", height: "100%" }} />
+                <div style={{ flex: 1, height: "100%" }} />
+            </div>
+        ),
+    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════════ */
-const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7];
+const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 function BuilderContent() {
     const params = useSearchParams();
@@ -1192,100 +1242,6 @@ function BuilderContent() {
                             <>
                                 {/* Column 1: Primary Settings */}
                                 <div className="space-y-8 flex flex-col">
-                                    <AnimatePresence>
-                                        {brand && (() => {
-                                            const headlineDisabled = layout === 4 || layout === 7;
-                                            return (
-                                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-                                                    <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${headlineDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
-                                                        <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
-                                                            style={{ background: headlineDisabled ? '#d1d5db' : primary }}>01</span>
-                                                        Personal Headline
-                                                        {headlineDisabled && (
-                                                            <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">
-                                                                — not available in this layout
-                                                            </span>
-                                                        )}
-                                                    </label>
-                                                    <div className={`space-y-4 transition-opacity duration-200 ${headlineDisabled ? 'opacity-30 pointer-events-none select-none' : ''}`}>
-                                                        <div className="bg-slate-50/50 rounded-xl px-4 py-3 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
-                                                            <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: headlineDisabled ? '#e5e7eb' : '#2563EB' }} />
-                                                            <div className="flex items-center justify-between mb-2">
-                                                                <div className="flex items-center gap-2">
-                                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Headline Draft</span>
-                                                                    <span className={`text-[10px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-slate-300'}`}>{text.length}/100</span>
-                                                                </div>
-                                                                <button onClick={() => setText("")} disabled={headlineDisabled} className="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest">
-                                                                    Clear
-                                                                </button>
-                                                            </div>
-                                                            <textarea
-                                                                value={text}
-                                                                onChange={e => setText(e.target.value)}
-                                                                maxLength={100}
-                                                                rows={1}
-                                                                disabled={headlineDisabled}
-                                                                placeholder={headlineDisabled ? "Not available in this layout" : "Type your personal headline..."}
-                                                                className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[20px] leading-tight"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </motion.div>
-                                            );
-                                        })()}
-                                    </AnimatePresence>
-                                    {brand && (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>08</span>
-                                                    Text Style
-                                                </label>
-                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
-                                                    {[
-                                                        { id: 'blocky', icon: 'B' },
-                                                        { id: 'elegant', icon: 'E' },
-                                                        { id: 'mono', icon: 'M' }
-                                                    ].map(s => (
-                                                        <button key={s.id}
-                                                            onClick={() => setTextStyle(s.id as any)}
-                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all"
-                                                            style={{
-                                                                background: textStyle === s.id ? 'white' : 'transparent',
-                                                                color: textStyle === s.id ? primary : '#9ca3af',
-                                                                boxShadow: textStyle === s.id ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
-                                                            }}>
-                                                            {s.icon}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>09</span>
-                                                    Text Size
-                                                </label>
-                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
-                                                    {[
-                                                        { label: '-', val: 0.75 },
-                                                        { label: '=', val: 1.0 },
-                                                        { label: '+', val: 1.25 }
-                                                    ].map(s => (
-                                                        <button key={s.label}
-                                                            onClick={() => setTextSize(s.val)}
-                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all"
-                                                            style={{
-                                                                background: textSize === s.val ? 'white' : 'transparent',
-                                                                color: textSize === s.val ? primary : '#9ca3af',
-                                                                boxShadow: textSize === s.val ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
-                                                            }}>
-                                                            {s.label}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
                                     <div>
                                         <div className="flex items-center justify-between mb-2">
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>02</span>Layout Style</label>
@@ -1297,7 +1253,7 @@ function BuilderContent() {
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
                                             <div className="flex gap-1 flex-1">
-                                                {([0, 1, 2, 3, 4, 5, 6, 7] as Layout[]).map(l => (
+                                                {([0, 1, 2, 3, 4, 5, 6, 7, 8] as Layout[]).map(l => (
                                                     <button key={l}
                                                         onClick={() => setLayout(l)}
                                                         className="flex-1 aspect-[4/1] rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95"
